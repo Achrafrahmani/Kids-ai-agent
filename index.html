@@ -4,120 +4,969 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Kids AI Agent</title>
+
 <style>
-:root{--bg:#f6f7fb;--card:#fff;--text:#182033;--muted:#6b7280;--primary:#6c5ce7;--primary2:#8b7cf6;--border:#e7e9f2;--ok:#16a34a;--warn:#d97706;--danger:#dc2626}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text)}
-button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}
-.app{min-height:100vh;display:flex}.sidebar{width:260px;background:#151827;color:#fff;padding:22px 16px;position:fixed;right:0;top:0;bottom:0;z-index:5}.brand{display:flex;gap:10px;align-items:center;font-weight:800;font-size:20px;padding:8px 10px 25px}.robot{font-size:30px}.nav button{width:100%;text-align:right;background:transparent;color:#cbd0df;padding:13px 14px;border-radius:12px;margin:3px 0}.nav button.active,.nav button:hover{background:#282c40;color:#fff}.main{margin-right:260px;width:calc(100% - 260px);padding:24px;max-width:1300px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}.top h1{margin:0;font-size:28px}.badge{background:#eeeafe;color:#5a49cf;border-radius:999px;padding:7px 12px;font-size:13px;font-weight:700}
-.hero{background:linear-gradient(135deg,#6c5ce7,#8879f3);color:#fff;border-radius:24px;padding:28px;display:flex;justify-content:space-between;align-items:center;gap:20px}.hero h2{font-size:30px;margin:0 0 10px}.hero p{margin:0;color:#eee;max-width:650px;line-height:1.8}.btn{padding:12px 18px;border-radius:12px;font-weight:700}.btn.primary{background:#fff;color:#5c4bd0}.btn.dark{background:#6c5ce7;color:#fff}.btn.ghost{background:#fff;border:1px solid var(--border);color:var(--text)}.btn.ok{background:#e9f8ee;color:#15803d}.btn.danger{background:#feecec;color:#b91c1c}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0}.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:0 4px 18px #1d25400a}.stat{font-size:30px;font-weight:800;margin-top:8px}.muted{color:var(--muted)}.section{margin-top:24px}.section h3{margin:0 0 14px}
-.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field label{display:block;font-weight:700;margin-bottom:7px}.field input,.field textarea,.field select{width:100%;border:1px solid var(--border);border-radius:12px;padding:12px;background:#fff;outline:none}.field textarea{min-height:120px;resize:vertical}.full{grid-column:1/-1}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.content-list{display:grid;gap:12px}.item{display:flex;justify-content:space-between;gap:15px;align-items:center;border:1px solid var(--border);border-radius:15px;padding:15px;background:#fff}.item h4{margin:0 0 5px}.pill{padding:5px 9px;border-radius:999px;font-size:12px;font-weight:700}.pill.pending{background:#fff4df;color:#b45309}.pill.approved{background:#e9f8ee;color:#15803d}.pill.rejected{background:#feecec;color:#b91c1c}
-.hidden{display:none!important}.notice{padding:13px 15px;border-radius:12px;background:#fff7e8;color:#8a5700;margin-top:15px}.mobilebar{display:none}
-@media(max-width:800px){.sidebar{display:none}.main{margin:0;width:100%;padding:16px 14px 85px}.grid{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.hero{display:block}.hero .actions{margin-top:18px}.mobilebar{display:flex;position:fixed;bottom:0;right:0;left:0;background:#151827;z-index:10;padding:8px;justify-content:space-around}.mobilebar button{background:transparent;color:#d7daea;font-size:12px}.top h1{font-size:22px}}
+:root{
+  --bg:#f6f7fb;
+  --card:#fff;
+  --text:#182033;
+  --muted:#6b7280;
+  --primary:#6c5ce7;
+  --primary2:#8b7cf6;
+  --border:#e7e9f2;
+  --ok:#16a34a;
+  --warn:#d97706;
+  --danger:#dc2626
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text)
+}
+
+button,input,textarea,select{font:inherit}
+button{cursor:pointer;border:0}
+
+.app{
+  min-height:100vh;
+  display:flex
+}
+
+.sidebar{
+  width:260px;
+  background:#151827;
+  color:#fff;
+  padding:22px 16px;
+  position:fixed;
+  right:0;
+  top:0;
+  bottom:0;
+  z-index:5
+}
+
+.brand{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  font-weight:800;
+  font-size:20px;
+  padding:8px 10px 25px
+}
+
+.robot{font-size:30px}
+
+.nav button{
+  width:100%;
+  text-align:right;
+  background:transparent;
+  color:#cbd0df;
+  padding:13px 14px;
+  border-radius:12px;
+  margin:3px 0
+}
+
+.nav button.active,
+.nav button:hover{
+  background:#282c40;
+  color:#fff
+}
+
+.main{
+  margin-right:260px;
+  width:calc(100% - 260px);
+  padding:24px;
+  max-width:1300px
+}
+
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:22px
+}
+
+.top h1{
+  margin:0;
+  font-size:28px
+}
+
+.badge{
+  background:#eeeafe;
+  color:#5a49cf;
+  border-radius:999px;
+  padding:7px 12px;
+  font-size:13px;
+  font-weight:700
+}
+
+.hero{
+  background:linear-gradient(135deg,#6c5ce7,#8879f3);
+  color:#fff;
+  border-radius:24px;
+  padding:28px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px
+}
+
+.hero h2{
+  font-size:30px;
+  margin:0 0 10px
+}
+
+.hero p{
+  margin:0;
+  color:#eee;
+  max-width:650px;
+  line-height:1.8
+}
+
+.btn{
+  padding:12px 18px;
+  border-radius:12px;
+  font-weight:700
+}
+
+.btn.primary{
+  background:#fff;
+  color:#5c4bd0
+}
+
+.btn.dark{
+  background:#6c5ce7;
+  color:#fff
+}
+
+.btn.ghost{
+  background:#fff;
+  border:1px solid var(--border);
+  color:var(--text)
+}
+
+.btn.ok{
+  background:#e9f8ee;
+  color:#15803d
+}
+
+.btn.danger{
+  background:#feecec;
+  color:#b91c1c
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin:20px 0
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 4px 18px #1d25400a
+}
+
+.stat{
+  font-size:30px;
+  font-weight:800;
+  margin-top:8px
+}
+
+.muted{color:var(--muted)}
+
+.section{margin-top:24px}
+
+.section h3{
+  margin:0 0 14px
+}
+
+.formgrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px
+}
+
+.field label{
+  display:block;
+  font-weight:700;
+  margin-bottom:7px
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  background:#fff;
+  outline:none
+}
+
+.field textarea{
+  min-height:120px;
+  resize:vertical
+}
+
+.full{
+  grid-column:1/-1
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:14px
+}
+
+.content-list{
+  display:grid;
+  gap:12px
+}
+
+.item{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  align-items:center;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:15px;
+  background:#fff
+}
+
+.item h4{
+  margin:0 0 5px
+}
+
+.pill{
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700
+}
+
+.pill.pending{
+  background:#fff4df;
+  color:#b45309
+}
+
+.pill.approved{
+  background:#e9f8ee;
+  color:#15803d
+}
+
+.pill.rejected{
+  background:#feecec;
+  color:#b91c1c
+}
+
+.hidden{
+  display:none!important
+}
+
+.notice{
+  padding:13px 15px;
+  border-radius:12px;
+  background:#fff7e8;
+  color:#8a5700;
+  margin-top:15px
+}
+
+.mobilebar{
+  display:none
+}
+
+@media(max-width:800px){
+
+  .sidebar{
+    display:none
+  }
+
+  .main{
+    margin:0;
+    width:100%;
+    padding:16px 14px 85px
+  }
+
+  .grid{
+    grid-template-columns:1fr
+  }
+
+  .formgrid{
+    grid-template-columns:1fr
+  }
+
+  .hero{
+    display:block
+  }
+
+  .hero .actions{
+    margin-top:18px
+  }
+
+  .mobilebar{
+    display:flex;
+    position:fixed;
+    bottom:0;
+    right:0;
+    left:0;
+    background:#151827;
+    z-index:10;
+    padding:8px;
+    justify-content:space-around
+  }
+
+  .mobilebar button{
+    background:transparent;
+    color:#d7daea;
+    font-size:12px
+  }
+
+  .top h1{
+    font-size:22px
+  }
+}
 </style>
 </head>
+
 <body>
+
 <div class="app">
+
 <aside class="sidebar">
-  <div class="brand"><span class="robot">🤖</span><span>Kids AI Agent</span></div>
-  <div class="nav">
-    <button class="active" onclick="show('dashboard',this)">🏠 لوحة التحكم</button>
-    <button onclick="show('create',this)">✨ إنشاء محتوى</button>
-    <button onclick="show('drafts',this)">📝 المسودات</button>
-    <button onclick="show('calendar',this)">📅 الجدولة</button>
-    <button onclick="show('settings',this)">⚙️ الإعدادات</button>
+
+  <div class="brand">
+    <span class="robot">🤖</span>
+    <span>Kids AI Agent</span>
   </div>
-  <div style="position:absolute;bottom:25px;right:18px;left:18px;color:#9298ab;font-size:12px">الموافقة البشرية مفعّلة ✅</div>
+
+  <div class="nav">
+
+    <button class="active" onclick="show('dashboard',this)">
+      🏠 لوحة التحكم
+    </button>
+
+    <button onclick="show('create',this)">
+      ✨ إنشاء محتوى
+    </button>
+
+    <button onclick="show('drafts',this)">
+      📝 المسودات
+    </button>
+
+    <button onclick="show('calendar',this)">
+      📅 الجدولة
+    </button>
+
+    <button onclick="show('settings',this)">
+      ⚙️ الإعدادات
+    </button>
+
+  </div>
+
+  <div style="position:absolute;bottom:25px;right:18px;left:18px;color:#9298ab;font-size:12px">
+    الموافقة البشرية مفعّلة ✅
+  </div>
+
 </aside>
 
+
 <main class="main">
-  <div class="top"><h1 id="title">لوحة التحكم</h1><span class="badge">● النظام جاهز</span></div>
+
+  <div class="top">
+    <h1 id="title">لوحة التحكم</h1>
+    <span class="badge">● النظام جاهز</span>
+  </div>
+
 
   <section id="dashboard" class="page">
+
     <div class="hero">
-      <div><h2>مرحبا بك في وكيل المحتوى 🤖</h2><p>أنشئ أفكارا وقصصا تعليمية للأطفال، ثم راجعها بنفسك قبل أن تصبح جاهزة للنشر.</p></div>
-      <div class="actions"><button class="btn primary" onclick="show('create')">ابدأ الإنشاء ✨</button><button class="btn ghost" onclick="show('drafts')">راجع المسودات</button></div>
+
+      <div>
+        <h2>مرحبا بك في وكيل المحتوى 🤖</h2>
+
+        <p>
+          أنشئ أفكارا وقصصا تعليمية للأطفال،
+          ثم راجعها بنفسك قبل أن تصبح جاهزة للنشر.
+        </p>
+      </div>
+
+      <div class="actions">
+
+        <button class="btn primary" onclick="show('create')">
+          ابدأ الإنشاء ✨
+        </button>
+
+        <button class="btn ghost" onclick="show('drafts')">
+          راجع المسودات
+        </button>
+
+      </div>
+
     </div>
+
+
     <div class="grid">
-      <div class="card"><div class="muted">المسودات</div><div class="stat" id="draftCount">0</div></div>
-      <div class="card"><div class="muted">بانتظار موافقتك</div><div class="stat" id="pendingCount">0</div></div>
-      <div class="card"><div class="muted">تمت الموافقة</div><div class="stat" id="approvedCount">0</div></div>
+
+      <div class="card">
+        <div class="muted">المسودات</div>
+        <div class="stat" id="draftCount">0</div>
+      </div>
+
+      <div class="card">
+        <div class="muted">بانتظار موافقتك</div>
+        <div class="stat" id="pendingCount">0</div>
+      </div>
+
+      <div class="card">
+        <div class="muted">تمت الموافقة</div>
+        <div class="stat" id="approvedCount">0</div>
+      </div>
+
     </div>
-    <div class="section card"><h3>كيف يعمل الوكيل؟</h3><div class="grid" style="margin:0">
-      <div><b>1. 💡 فكرة</b><p class="muted">حدد العمر والموضوع والمنصة.</p></div>
-      <div><b>2. ✍️ محتوى</b><p class="muted">يتم تجهيز عنوان ووصف وسيناريو أولي.</p></div>
-      <div><b>3. 👤 موافقتك</b><p class="muted">لا يتم النشر تلقائيا قبل موافقتك.</p></div>
-    </div></div>
+
+
+    <div class="section card">
+
+      <h3>كيف يعمل الوكيل؟</h3>
+
+      <div class="grid" style="margin:0">
+
+        <div>
+          <b>1. 💡 فكرة</b>
+          <p class="muted">
+            حدد العمر والموضوع والمنصة.
+          </p>
+        </div>
+
+        <div>
+          <b>2. ✍️ محتوى</b>
+          <p class="muted">
+            يتم تجهيز عنوان ووصف وسيناريو أولي.
+          </p>
+        </div>
+
+        <div>
+          <b>3. 👤 موافقتك</b>
+          <p class="muted">
+            لا يتم النشر تلقائيا قبل موافقتك.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
   </section>
+
 
   <section id="create" class="page hidden">
+
     <div class="card">
+
       <h3>إنشاء محتوى جديد ✨</h3>
+
       <div class="formgrid">
-        <div class="field"><label>الفئة العمرية</label><select id="age"><option>3 - 5 سنوات</option><option selected>6 - 8 سنوات</option><option>9 - 12 سنة</option></select></div>
-        <div class="field"><label>المنصة</label><select id="platform"><option>YouTube</option><option>Instagram</option><option>TikTok</option></select></div>
-        <div class="field full"><label>الموضوع</label><input id="topic" placeholder="مثال: لماذا يجب أن نحافظ على الماء؟"></div>
-        <div class="field full"><label>نوع المحتوى</label><select id="kind"><option>قصة تعليمية</option><option>فيديو كرتوني قصير</option><option>درس مبسط</option><option>منشور تربوي</option></select></div>
+
+        <div class="field">
+
+          <label>الفئة العمرية</label>
+
+          <select id="age">
+
+            <option>3 - 5 سنوات</option>
+
+            <option selected>
+              6 - 8 سنوات
+            </option>
+
+            <option>
+              9 - 12 سنة
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>المنصة</label>
+
+          <select id="platform">
+
+            <option>YouTube</option>
+            <option>Instagram</option>
+            <option>TikTok</option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>الموضوع</label>
+
+          <input
+            id="topic"
+            placeholder="مثال: لماذا يجب أن نحافظ على الماء؟"
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>نوع المحتوى</label>
+
+          <select id="kind">
+
+            <option>قصة تعليمية</option>
+            <option>فيديو كرتوني قصير</option>
+            <option>درس مبسط</option>
+            <option>منشور تربوي</option>
+
+          </select>
+
+        </div>
+
       </div>
-      <div class="actions"><button class="btn dark" onclick="generate()">🤖 إنشاء مسودة</button><button class="btn ghost" onclick="show('dashboard')">إلغاء</button></div>
-      <div class="notice">هذه النسخة هي واجهة تشغيل أولية: إنشاء النص يتم محليا للتجربة، ولا يوجد نشر تلقائي.</div>
+
+
+      <div class="actions">
+
+        <button class="btn dark" onclick="generate()">
+          🤖 إنشاء مسودة
+        </button>
+
+        <button class="btn ghost" onclick="show('dashboard')">
+          إلغاء
+        </button>
+
+      </div>
+
+
+      <div class="notice">
+        هذه النسخة هي واجهة تشغيل أولية:
+        إنشاء النص يتم محليا للتجربة،
+        ولا يوجد نشر تلقائي.
+      </div>
+
     </div>
-    <div id="preview" class="card hidden" style="margin-top:16px"></div>
+
+
+    <div
+      id="preview"
+      class="card hidden"
+      style="margin-top:16px"
+    ></div>
+
   </section>
+
 
   <section id="drafts" class="page hidden">
-    <div class="card"><h3>المسودات والموافقة البشرية 📝</h3><div id="list" class="content-list"></div></div>
+
+    <div class="card">
+
+      <h3>المسودات والموافقة البشرية 📝</h3>
+
+      <div id="list" class="content-list"></div>
+
+    </div>
+
   </section>
+
 
   <section id="calendar" class="page hidden">
-    <div class="card"><h3>الجدولة 📅</h3><p class="muted">هنا سنضيف لاحقا تقويم النشر وربط الحسابات. حاليا يمكنك حفظ المحتوى كموافَق عليه فقط.</p></div>
+
+    <div class="card">
+
+      <h3>الجدولة 📅</h3>
+
+      <p class="muted">
+        هنا سنضيف لاحقا تقويم النشر وربط الحسابات.
+        حاليا يمكنك حفظ المحتوى كموافَق عليه فقط.
+      </p>
+
+    </div>
+
   </section>
+
 
   <section id="settings" class="page hidden">
-    <div class="card"><h3>الإعدادات ⚙️</h3><p><b>الموافقة البشرية قبل النشر:</b> <span class="pill approved">مفعّلة</span></p><p class="muted">لن يتم تصميم النشر التلقائي إلا بعد ربط حسابات المنصات وإضافة مفاتيح API المناسبة.</p></div>
+
+    <div class="card">
+
+      <h3>الإعدادات ⚙️</h3>
+
+      <p>
+        <b>الموافقة البشرية قبل النشر:</b>
+
+        <span class="pill approved">
+          مفعّلة
+        </span>
+      </p>
+
+      <p class="muted">
+        لن يتم تصميم النشر التلقائي إلا بعد ربط حسابات
+        المنصات وإضافة مفاتيح API المناسبة.
+      </p>
+
+    </div>
+
   </section>
+
 </main>
+
 </div>
+
 
 <div class="mobilebar">
- <button onclick="show('dashboard')">🏠<br>الرئيسية</button>
- <button onclick="show('create')">✨<br>إنشاء</button>
- <button onclick="show('drafts')">📝<br>المسودات</button>
- <button onclick="show('settings')">⚙️<br>الإعدادات</button>
+
+  <button onclick="show('dashboard')">
+    🏠<br>الرئيسية
+  </button>
+
+  <button onclick="show('create')">
+    ✨<br>إنشاء
+  </button>
+
+  <button onclick="show('drafts')">
+    📝<br>المسودات
+  </button>
+
+  <button onclick="show('settings')">
+    ⚙️<br>الإعدادات
+  </button>
+
 </div>
 
+
 <script>
-let items=JSON.parse(localStorage.getItem('kidsAgentDrafts')||'[]');
-function save(){localStorage.setItem('kidsAgentDrafts',JSON.stringify(items));updateStats();render();}
+
+let items = JSON.parse(
+  localStorage.getItem('kidsAgentDrafts') || '[]'
+);
+
+
+function save(){
+
+  localStorage.setItem(
+    'kidsAgentDrafts',
+    JSON.stringify(items)
+  );
+
+  updateStats();
+  render();
+}
+
+
 function show(id,btn){
- document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));
- document.getElementById(id).classList.remove('hidden');
- const names={dashboard:'لوحة التحكم',create:'إنشاء محتوى',drafts:'المسودات',calendar:'الجدولة',settings:'الإعدادات'};
- document.getElementById('title').textContent=names[id]||'Kids AI Agent';
- if(btn){document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
- if(id==='drafts')render();
- window.scrollTo({top:0,behavior:'smooth'});
+
+  document
+    .querySelectorAll('.page')
+    .forEach(x => x.classList.add('hidden'));
+
+  document
+    .getElementById(id)
+    .classList.remove('hidden');
+
+
+  const names = {
+
+    dashboard:'لوحة التحكم',
+    create:'إنشاء محتوى',
+    drafts:'المسودات',
+    calendar:'الجدولة',
+    settings:'الإعدادات'
+
+  };
+
+
+  document.getElementById('title').textContent =
+    names[id] || 'Kids AI Agent';
+
+
+  if(btn){
+
+    document
+      .querySelectorAll('.nav button')
+      .forEach(x => x.classList.remove('active'));
+
+    btn.classList.add('active');
+
+  }
+
+
+  if(id === 'drafts'){
+    render();
+  }
+
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+
 }
+
+
 function generate(){
- const topic=document.getElementById('topic').value.trim()||'الماء وأهميته';
- const age=document.getElementById('age').value, platform=document.getElementById('platform').value, kind=document.getElementById('kind').value;
- const title='مغامرة صغيرة حول: '+topic;
- const script=`مرحبا يا أصدقاء! 🌟 اليوم سنكتشف معا ${topic}.\\n\\nسنبدأ بسؤال بسيط، ثم نتعلم 3 معلومات سهلة، وفي النهاية سنحصل على مهمة صغيرة يمكن للطفل تنفيذها مع والديه.\\n\\nالعمر المناسب: ${age}.`;
- const item={id:Date.now(),title,topic,age,platform,kind,script,status:'pending',created:new Date().toLocaleString('ar-MA')};
- items.unshift(item);save();
- document.getElementById('preview').classList.remove('hidden');
- document.getElementById('preview').innerHTML=`<h3>تم إنشاء المسودة ✅</h3><p><b>${title}</b></p><p class="muted">${script.replaceAll('\\n','<br>')}</p><div class="actions"><button class="btn ok" onclick="approve(${item.id})">موافقة</button><button class="btn danger" onclick="reject(${item.id})">رفض</button><button class="btn ghost" onclick="show('drafts')">فتح المسودات</button></div>`;
+
+  const topic =
+    document
+      .getElementById('topic')
+      .value
+      .trim() || 'الماء وأهميته';
+
+
+  const age =
+    document.getElementById('age').value;
+
+
+  const platform =
+    document.getElementById('platform').value;
+
+
+  const kind =
+    document.getElementById('kind').value;
+
+
+  const title =
+    'مغامرة صغيرة حول: ' + topic;
+
+
+  const script =
+`مرحبا يا أصدقاء! 🌟 اليوم سنكتشف معا ${topic}.
+
+سنبدأ بسؤال بسيط، ثم نتعلم 3 معلومات سهلة، وفي النهاية سنحصل على مهمة صغيرة يمكن للطفل تنفيذها مع والديه.
+
+العمر المناسب: ${age}.`;
+
+
+  const item = {
+
+    id:Date.now(),
+
+    title,
+
+    topic,
+
+    age,
+
+    platform,
+
+    kind,
+
+    script,
+
+    status:'pending',
+
+    created:new Date().toLocaleString('ar-MA')
+
+  };
+
+
+  items.unshift(item);
+
+  save();
+
+
+  document
+    .getElementById('preview')
+    .classList
+    .remove('hidden');
+
+
+  document.getElementById('preview').innerHTML = `
+
+    <h3>تم إنشاء المسودة ✅</h3>
+
+    <p>
+      <b>${title}</b>
+    </p>
+
+    <p class="muted">
+      ${script.replaceAll('\n','<br>')}
+    </p>
+
+    <div class="actions">
+
+      <button
+        class="btn ok"
+        onclick="approve(${item.id})"
+      >
+        موافقة
+      </button>
+
+      <button
+        class="btn danger"
+        onclick="reject(${item.id})"
+      >
+        رفض
+      </button>
+
+      <button
+        class="btn ghost"
+        onclick="show('drafts')"
+      >
+        فتح المسودات
+      </button>
+
+    </div>
+
+  `;
+
 }
-function approve(id){let x=items.find(i=>i.id===id);if(x)x.status='approved';save();show('drafts')}
-function reject(id){let x=items.find(i=>i.id===id);if(x)x.status='rejected';save();show('drafts')}
+
+
+function approve(id){
+
+  let x = items.find(i => i.id === id);
+
+  if(x){
+    x.status = 'approved';
+  }
+
+  save();
+
+  show('drafts');
+
+}
+
+
+function reject(id){
+
+  let x = items.find(i => i.id === id);
+
+  if(x){
+    x.status = 'rejected';
+  }
+
+  save();
+
+  show('drafts');
+
+}
+
+
 function render(){
- const list=document.getElementById('list'); if(!list)return;
- if(!items.length){list.innerHTML='<p class="muted">لا توجد مسودات حاليا. اضغط «إنشاء محتوى» لبدء أول مسودة.</p>';return}
- list.innerHTML=items.map(x=>`<div class="item"><div><h4>${x.title}</h4><div class="muted">${x.kind} · ${x.platform} · ${x.created}</div></div><div style="display:flex;align-items:center;gap:8px"><span class="pill ${x.status}">${x.status==='pending'?'بانتظار الموافقة':x.status==='approved'?'تمت الموافقة':'مرفوضة'}</span>${x.status==='pending'?`<button class="btn ok" onclick="approve(${x.id})">موافقة</button><button class="btn danger" onclick="reject(${x.id})">رفض</button>`:''}</div></div>`).join('');
+
+  const list =
+    document.getElementById('list');
+
+
+  if(!list) return;
+
+
+  if(!items.length){
+
+    list.innerHTML =
+      '<p class="muted">لا توجد مسودات حاليا. اضغط «إنشاء محتوى» لبدء أول مسودة.</p>';
+
+    return;
+  }
+
+
+  list.innerHTML = items.map(x => `
+
+    <div class="item">
+
+      <div>
+
+        <h4>
+          ${x.title}
+        </h4>
+
+        <div class="muted">
+          ${x.kind} · ${x.platform} · ${x.created}
+        </div>
+
+      </div>
+
+
+      <div
+        style="display:flex;align-items:center;gap:8px"
+      >
+
+        <span class="pill ${x.status}">
+
+          ${
+            x.status === 'pending'
+              ? 'بانتظار الموافقة'
+              : x.status === 'approved'
+                ? 'تمت الموافقة'
+                : 'مرفوضة'
+          }
+
+        </span>
+
+
+        ${
+          x.status === 'pending'
+            ? `
+
+              <button
+                class="btn ok"
+                onclick="approve(${x.id})"
+              >
+                موافقة
+              </button>
+
+              <button
+                class="btn danger"
+                onclick="reject(${x.id})"
+              >
+                رفض
+              </button>
+
+            `
+            : ''
+        }
+
+      </div>
+
+    </div>
+
+  `).join('');
+
 }
-function updateStats(){document.getElementById('draftCount').textContent=items.length;document.getElementById('pendingCount').textContent=items.filter(x=>x.status==='pending').length;document.getElementById('approvedCount').textContent=items.filter(x=>x.status==='approved').length}
-updateStats();render();
+
+
+function updateStats(){
+
+  document.getElementById('draftCount').textContent =
+    items.length;
+
+
+  document.getElementById('pendingCount').textContent =
+    items.filter(
+      x => x.status === 'pending'
+    ).length;
+
+
+  document.getElementById('approvedCount').textContent =
+    items.filter(
+      x => x.status === 'approved'
+    ).length;
+
+}
+
+
+updateStats();
+render();
+
 </script>
+
 </body>
 </html>
