@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Kids AI Studio</title>
 
+<!-- Supabase: مرة واحدة فقط -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -14,13 +15,12 @@
   --text:#182033;
   --muted:#6b7280;
   --primary:#6c5ce7;
-  --primary2:#8b7cf6;
   --border:#e7e9f2;
-  --ok:#16a34a;
-  --danger:#dc2626;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -29,8 +29,14 @@ body{
   color:var(--text);
 }
 
-button,input,textarea,select{font:inherit}
-button{cursor:pointer;border:0}
+button,input,textarea,select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+  border:0;
+}
 
 .app{
   min-height:100vh;
@@ -58,7 +64,9 @@ button{cursor:pointer;border:0}
   padding:8px 10px 25px;
 }
 
-.robot{font-size:30px}
+.robot{
+  font-size:30px;
+}
 
 .nav button{
   width:100%;
@@ -370,6 +378,7 @@ button{cursor:pointer;border:0}
   </div>
 
   <div class="nav">
+
     <button class="active" onclick="show('dashboard',this)">
       🏠 لوحة التحكم
     </button>
@@ -389,6 +398,7 @@ button{cursor:pointer;border:0}
     <button onclick="show('settings',this)">
       ⚙️ الإعدادات
     </button>
+
   </div>
 
   <div style="position:absolute;bottom:25px;right:18px;left:18px;color:#9298ab;font-size:12px">
@@ -397,12 +407,21 @@ button{cursor:pointer;border:0}
 
 </aside>
 
+
 <main class="main">
 
 <div class="top">
-  <h1 id="title">لوحة التحكم</h1>
-  <span class="badge">● النظام جاهز</span>
+
+  <h1 id="title">
+    لوحة التحكم
+  </h1>
+
+  <span class="badge">
+    ● النظام جاهز
+  </span>
+
 </div>
+
 
 <!-- DASHBOARD -->
 
@@ -411,23 +430,29 @@ button{cursor:pointer;border:0}
   <div class="hero">
 
     <div>
-      <h2>مرحبا بك في وكيل المحتوى 🤖</h2>
+
+      <h2>
+        مرحبا بك في وكيل المحتوى 🤖
+      </h2>
 
       <p>
         أنشئ أفكارا وقصصا تعليمية للأطفال،
         ثم راجعها بنفسك قبل أن تصبح جاهزة للنشر.
       </p>
+
     </div>
 
     <div class="actions">
 
-      <button class="btn primary"
-              onclick="show('create')">
+      <button
+        class="btn primary"
+        onclick="show('create')">
         ابدأ الإنشاء ✨
       </button>
 
-      <button class="btn ghost"
-              onclick="show('drafts')">
+      <button
+        class="btn ghost"
+        onclick="show('drafts')">
         راجع المسودات
       </button>
 
@@ -435,50 +460,94 @@ button{cursor:pointer;border:0}
 
   </div>
 
+
   <div class="grid">
 
     <div class="card">
-      <div class="muted">المسودات</div>
-      <div class="stat" id="draftCount">0</div>
+
+      <div class="muted">
+        المسودات
+      </div>
+
+      <div
+        class="stat"
+        id="draftCount">
+        0
+      </div>
+
     </div>
 
-    <div class="card">
-      <div class="muted">بانتظار موافقتك</div>
-      <div class="stat" id="pendingCount">0</div>
-    </div>
 
     <div class="card">
-      <div class="muted">تمت الموافقة</div>
-      <div class="stat" id="approvedCount">0</div>
+
+      <div class="muted">
+        بانتظار موافقتك
+      </div>
+
+      <div
+        class="stat"
+        id="pendingCount">
+        0
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="muted">
+        تمت الموافقة
+      </div>
+
+      <div
+        class="stat"
+        id="approvedCount">
+        0
+      </div>
+
     </div>
 
   </div>
 
+
   <div class="section card">
 
-    <h3>كيف يعمل الوكيل؟</h3>
+    <h3>
+      كيف يعمل الوكيل؟
+    </h3>
 
     <div class="grid" style="margin:0">
 
       <div>
+
         <b>1. 💡 فكرة</b>
+
         <p class="muted">
           حدد العمر والموضوع والمنصة.
         </p>
+
       </div>
 
+
       <div>
+
         <b>2. ✍️ محتوى</b>
+
         <p class="muted">
           يتم تجهيز عنوان ووصف وسيناريو أولي.
         </p>
+
       </div>
 
+
       <div>
+
         <b>3. 👤 موافقتك</b>
+
         <p class="muted">
           لا يتم النشر تلقائيا قبل موافقتك.
         </p>
+
       </div>
 
     </div>
@@ -494,17 +563,23 @@ button{cursor:pointer;border:0}
 
   <div class="card">
 
-    <h3>إنشاء محتوى جديد ✨</h3>
+    <h3>
+      إنشاء محتوى جديد ✨
+    </h3>
 
     <div class="formgrid">
 
       <div class="field">
 
-        <label>الفئة العمرية</label>
+        <label>
+          الفئة العمرية
+        </label>
 
         <select id="age">
 
-          <option>3 - 5 سنوات</option>
+          <option>
+            3 - 5 سنوات
+          </option>
 
           <option selected>
             6 - 8 سنوات
@@ -521,15 +596,23 @@ button{cursor:pointer;border:0}
 
       <div class="field">
 
-        <label>المنصة</label>
+        <label>
+          المنصة
+        </label>
 
         <select id="platform">
 
-          <option>YouTube</option>
+          <option>
+            YouTube
+          </option>
 
-          <option>Instagram</option>
+          <option>
+            Instagram
+          </option>
 
-          <option>TikTok</option>
+          <option>
+            TikTok
+          </option>
 
         </select>
 
@@ -538,29 +621,40 @@ button{cursor:pointer;border:0}
 
       <div class="field full">
 
-        <label>الموضوع</label>
+        <label>
+          الموضوع
+        </label>
 
         <input
           id="topic"
-          placeholder="مثال: لماذا يجب أن نحافظ على الماء؟"
-        >
+          placeholder="مثال: لماذا يجب أن نحافظ على الماء؟">
 
       </div>
 
 
       <div class="field full">
 
-        <label>نوع المحتوى</label>
+        <label>
+          نوع المحتوى
+        </label>
 
         <select id="kind">
 
-          <option>قصة تعليمية</option>
+          <option>
+            قصة تعليمية
+          </option>
 
-          <option>فيديو كرتوني قصير</option>
+          <option>
+            فيديو كرتوني قصير
+          </option>
 
-          <option>درس مبسط</option>
+          <option>
+            درس مبسط
+          </option>
 
-          <option>منشور تربوي</option>
+          <option>
+            منشور تربوي
+          </option>
 
         </select>
 
@@ -587,8 +681,10 @@ button{cursor:pointer;border:0}
 
 
     <div class="notice">
+
       يتم حفظ المسودات في قاعدة بيانات Supabase.
       النشر التلقائي غير مفعّل.
+
     </div>
 
   </div>
@@ -609,7 +705,9 @@ button{cursor:pointer;border:0}
 
   <div class="card">
 
-    <h3>المسودات والموافقة البشرية 📝</h3>
+    <h3>
+      المسودات والموافقة البشرية 📝
+    </h3>
 
     <div
       id="loading"
@@ -633,7 +731,9 @@ button{cursor:pointer;border:0}
 
   <div class="card">
 
-    <h3>الجدولة 📅</h3>
+    <h3>
+      الجدولة 📅
+    </h3>
 
     <p class="muted">
       هنا سنضيف لاحقا تقويم النشر وربط حسابات
@@ -655,21 +755,37 @@ button{cursor:pointer;border:0}
 
   <div class="card">
 
-    <h3>الإعدادات ⚙️</h3>
+    <h3>
+      الإعدادات ⚙️
+    </h3>
 
     <p>
-      <b>الموافقة البشرية قبل النشر:</b>
+
+      <b>
+        الموافقة البشرية قبل النشر:
+      </b>
+
       <span class="pill approved">
         مفعّلة
       </span>
+
     </p>
 
+
     <p>
-      <b>قاعدة البيانات:</b>
-      <span id="dbStatus" class="pill pending">
+
+      <b>
+        قاعدة البيانات:
+      </b>
+
+      <span
+        id="dbStatus"
+        class="pill pending">
         جاري الاتصال...
       </span>
+
     </p>
+
 
     <p class="muted">
       لن يتم نشر أي محتوى تلقائيا بدون موافقتك.
@@ -684,28 +800,32 @@ button{cursor:pointer;border:0}
 </div>
 
 
+<!-- MOBILE -->
+
 <div class="mobilebar">
 
   <button onclick="show('dashboard')">
-    🏠<br>الرئيسية
+    🏠<br>
+    الرئيسية
   </button>
 
   <button onclick="show('create')">
-    ✨<br>إنشاء
+    ✨<br>
+    إنشاء
   </button>
 
   <button onclick="show('drafts')">
-    📝<br>المسودات
+    📝<br>
+    المسودات
   </button>
 
   <button onclick="show('settings')">
-    ⚙️<br>الإعدادات
+    ⚙️<br>
+    الإعدادات
   </button>
 
 </div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
@@ -716,17 +836,11 @@ button{cursor:pointer;border:0}
 const SUPABASE_URL =
   "https://cfnebaqppnezhzdrxnl.supabase.co";
 
-  
-
 const SUPABASE_KEY =
   "sb_publishable_ELVkAInGUmfeVjiPiITMog_Db55uskA";
 
-
-const { createClient } =
-  supabase;
-
 const db =
-  createClient(
+  window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
@@ -740,13 +854,17 @@ function show(id, btn){
 
   document
     .querySelectorAll(".page")
-    .forEach(x =>
-      x.classList.add("hidden")
-    );
+    .forEach(function(page){
+      page.classList.add("hidden");
+    });
 
-  document
-    .getElementById(id)
-    .classList.remove("hidden");
+
+  const page =
+    document.getElementById(id);
+
+  if(page){
+    page.classList.remove("hidden");
+  }
 
 
   const names = {
@@ -768,12 +886,11 @@ function show(id, btn){
 
     document
       .querySelectorAll(".nav button")
-      .forEach(x =>
-        x.classList.remove("active")
-      );
+      .forEach(function(x){
+        x.classList.remove("active");
+      });
 
     btn.classList.add("active");
-
   }
 
 
@@ -846,99 +963,105 @@ async function generate(){
 
   preview.classList.remove("hidden");
 
-
-  preview.innerHTML = `
-    <h3>جاري حفظ المسودة... ⏳</h3>
-  `;
+  preview.innerHTML =
+    "<h3>جاري حفظ المسودة... ⏳</h3>";
 
 
-  const { data, error } = await db
-    .from("drafts")
-    .insert({
+  try{
 
-      title:title,
-
-      topic:topic,
-
-      age:age,
-
-      platform:platform,
-
-      kind:kind,
-
-      script:script,
-
-      status:"pending"
-
-    })
-    .select()
-    .single();
+    const result =
+      await db
+        .from("drafts")
+        .insert({
+          title:title,
+          topic:topic,
+          age:age,
+          platform:platform,
+          kind:kind,
+          script:script,
+          status:"pending"
+        })
+        .select()
+        .single();
 
 
-  if(error){
+    const data = result.data;
+    const error = result.error;
+
+
+    if(error){
+      throw error;
+    }
+
+
+    preview.innerHTML = `
+
+      <h3>
+        تم إنشاء المسودة وحفظها ✅
+      </h3>
+
+      <p>
+        <b>
+          ${escapeHtml(title)}
+        </b>
+      </p>
+
+      <p class="muted">
+        ${escapeHtml(script).replace(/\n/g,"<br>")}
+      </p>
+
+      <div class="actions">
+
+        <button
+          class="btn ok"
+          onclick="approve('${data.id}')">
+          موافقة ✅
+        </button>
+
+        <button
+          class="btn danger"
+          onclick="reject('${data.id}')">
+          رفض ❌
+        </button>
+
+        <button
+          class="btn ghost"
+          onclick="show('drafts')">
+          فتح المسودات
+        </button>
+
+      </div>
+    `;
+
+
+    document
+      .getElementById("topic")
+      .value = "";
+
+
+    await updateStats();
+
+  }catch(error){
 
     console.error(error);
 
     preview.innerHTML = `
-      <h3>وقع مشكل ❌</h3>
+
+      <h3>
+        وقع مشكل ❌
+      </h3>
 
       <p>
-        ${escapeHtml(error.message)}
+        ${escapeHtml(error.message || "خطأ غير معروف")}
       </p>
 
       <div class="notice">
-        تأكد أن جدول drafts موجود في Supabase
-        وأن Publishable Key صحيح.
+        تأكد من وجود جدول drafts في Supabase
+        ومن إعدادات RLS والصلاحيات.
       </div>
+
     `;
-
-    return;
   }
-
-
-  preview.innerHTML = `
-
-    <h3>تم إنشاء المسودة وحفظها ✅</h3>
-
-    <p>
-      <b>${escapeHtml(title)}</b>
-    </p>
-
-    <p class="muted">
-      ${escapeHtml(script).replace(/\n/g,"<br>")}
-    </p>
-
-    <div class="actions">
-
-      <button
-        class="btn ok"
-        onclick="approve('${data.id}')">
-        موافقة ✅
-      </button>
-
-      <button
-        class="btn danger"
-        onclick="reject('${data.id}')">
-        رفض ❌
-      </button>
-
-      <button
-        class="btn ghost"
-        onclick="show('drafts')">
-        فتح المسودات
-      </button>
-
-    </div>
-  `;
-
-
-  document
-    .getElementById("topic")
-    .value = "";
-
-
-  await updateStats();
-
 }
 
 
@@ -948,30 +1071,35 @@ async function generate(){
 
 async function approve(id){
 
-  const { error } =
-    await db
-      .from("drafts")
-      .update({
-        status:"approved"
-      })
-      .eq("id",id);
+  try{
+
+    const result =
+      await db
+        .from("drafts")
+        .update({
+          status:"approved"
+        })
+        .eq("id",id);
 
 
-  if(error){
+    if(result.error){
+      throw result.error;
+    }
+
+
+    await updateStats();
+    await loadDrafts();
+
+    show("drafts");
+
+  }catch(error){
 
     alert(
       "وقع مشكل: " +
-      error.message
+      (error.message || "خطأ غير معروف")
     );
 
-    return;
   }
-
-
-  await updateStats();
-  await loadDrafts();
-
-  show("drafts");
 }
 
 
@@ -981,30 +1109,35 @@ async function approve(id){
 
 async function reject(id){
 
-  const { error } =
-    await db
-      .from("drafts")
-      .update({
-        status:"rejected"
-      })
-      .eq("id",id);
+  try{
+
+    const result =
+      await db
+        .from("drafts")
+        .update({
+          status:"rejected"
+        })
+        .eq("id",id);
 
 
-  if(error){
+    if(result.error){
+      throw result.error;
+    }
+
+
+    await updateStats();
+    await loadDrafts();
+
+    show("drafts");
+
+  }catch(error){
 
     alert(
       "وقع مشكل: " +
-      error.message
+      (error.message || "خطأ غير معروف")
     );
 
-    return;
   }
-
-
-  await updateStats();
-  await loadDrafts();
-
-  show("drafts");
 }
 
 
@@ -1026,124 +1159,157 @@ async function loadDrafts(){
   list.innerHTML = "";
 
 
-  const { data, error } =
-    await db
-      .from("drafts")
-      .select("*")
-      .order("created_at",{
-        ascending:false
-      });
+  try{
+
+    const result =
+      await db
+        .from("drafts")
+        .select("*")
+        .order("created_at",{
+          ascending:false
+        });
 
 
-  loading.classList.add("hidden");
+    if(result.error){
+      throw result.error;
+    }
 
 
-  if(error){
-
-    list.innerHTML = `
-      <div class="notice">
-        تعذر تحميل المسودات:
-        ${escapeHtml(error.message)}
-      </div>
-    `;
-
-    return;
-  }
+    const data =
+      result.data || [];
 
 
-  if(!data || !data.length){
-
-    list.innerHTML = `
-      <p class="muted">
-        لا توجد مسودات حاليا.
-        اضغط «إنشاء محتوى» لبدء أول مسودة.
-      </p>
-    `;
-
-    return;
-  }
+    loading.classList.add("hidden");
 
 
-  list.innerHTML =
-    data.map(x => {
+    if(!data.length){
 
-      let statusText =
-        "بانتظار الموافقة";
+      list.innerHTML = `
 
-      if(x.status === "approved"){
-        statusText =
-          "تمت الموافقة";
-      }
-
-      if(x.status === "rejected"){
-        statusText =
-          "مرفوضة";
-      }
-
-
-      return `
-
-        <div class="item">
-
-          <div>
-
-            <h4>
-              ${escapeHtml(x.title || "")}
-            </h4>
-
-            <div class="muted">
-
-              ${escapeHtml(x.kind || "")}
-              ·
-              ${escapeHtml(x.platform || "")}
-
-            </div>
-
-            <div class="muted">
-
-              ${escapeHtml(x.age || "")}
-
-            </div>
-
-          </div>
-
-
-          <div
-            class="item-actions"
-            style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-
-            <span
-              class="pill ${x.status}">
-              ${statusText}
-            </span>
-
-            ${
-              x.status === "pending"
-              ?
-              `
-                <button
-                  class="btn ok"
-                  onclick="approve('${x.id}')">
-                  موافقة
-                </button>
-
-                <button
-                  class="btn danger"
-                  onclick="reject('${x.id}')">
-                  رفض
-                </button>
-              `
-              :
-              ""
-            }
-
-          </div>
-
-        </div>
+        <p class="muted">
+          لا توجد مسودات حاليا.
+          اضغط «إنشاء محتوى» لبدء أول مسودة.
+        </p>
 
       `;
 
-    }).join("");
+      return;
+    }
+
+
+    list.innerHTML =
+      data.map(function(x){
+
+        let statusText =
+          "بانتظار الموافقة";
+
+        let statusClass =
+          "pending";
+
+
+        if(x.status === "approved"){
+
+          statusText =
+            "تمت الموافقة";
+
+          statusClass =
+            "approved";
+        }
+
+
+        if(x.status === "rejected"){
+
+          statusText =
+            "مرفوضة";
+
+          statusClass =
+            "rejected";
+        }
+
+
+        let buttons = "";
+
+
+        if(x.status === "pending"){
+
+          buttons = `
+
+            <button
+              class="btn ok"
+              onclick="approve('${x.id}')">
+              موافقة
+            </button>
+
+            <button
+              class="btn danger"
+              onclick="reject('${x.id}')">
+              رفض
+            </button>
+
+          `;
+        }
+
+
+        return `
+
+          <div class="item">
+
+            <div>
+
+              <h4>
+                ${escapeHtml(x.title || "")}
+              </h4>
+
+              <div class="muted">
+                ${escapeHtml(x.kind || "")}
+                ·
+                ${escapeHtml(x.platform || "")}
+              </div>
+
+              <div class="muted">
+                ${escapeHtml(x.age || "")}
+              </div>
+
+            </div>
+
+
+            <div
+              class="item-actions"
+              style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+
+              <span class="pill ${statusClass}">
+                ${statusText}
+              </span>
+
+              ${buttons}
+
+            </div>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+  }catch(error){
+
+    loading.classList.add("hidden");
+
+    list.innerHTML = `
+
+      <div class="notice">
+
+        تعذر تحميل المسودات:
+
+        ${escapeHtml(
+          error.message || "خطأ غير معروف"
+        )}
+
+      </div>
+
+    `;
+
+  }
 }
 
 
@@ -1153,43 +1319,52 @@ async function loadDrafts(){
 
 async function updateStats(){
 
-  const { data, error } =
-    await db
-      .from("drafts")
-      .select("status");
+  try{
+
+    const result =
+      await db
+        .from("drafts")
+        .select("status");
 
 
-  if(error){
+    if(result.error){
+      throw result.error;
+    }
 
-    console.error(error);
-    return;
+
+    const items =
+      result.data || [];
+
+
+    document
+      .getElementById("draftCount")
+      .textContent =
+      items.length;
+
+
+    document
+      .getElementById("pendingCount")
+      .textContent =
+      items.filter(function(x){
+        return x.status === "pending";
+      }).length;
+
+
+    document
+      .getElementById("approvedCount")
+      .textContent =
+      items.filter(function(x){
+        return x.status === "approved";
+      }).length;
+
+  }catch(error){
+
+    console.error(
+      "Stats error:",
+      error
+    );
+
   }
-
-
-  const items =
-    data || [];
-
-
-  document
-    .getElementById("draftCount")
-    .textContent =
-    items.length;
-
-
-  document
-    .getElementById("pendingCount")
-    .textContent =
-    items.filter(
-      x => x.status === "pending"
-    ).length;
-
-
-  document
-    .getElementById("approvedCount")
-    .textContent =
-    items.filter(
-      x => x.status === "approved"
-    ).length;
 }
 
 
@@ -1203,28 +1378,39 @@ async function testConnection(){
     document.getElementById("dbStatus");
 
 
-  const { error } =
-    await db
-      .from("drafts")
-      .select("id")
-      .limit(1);
+  try{
+
+    const result =
+      await db
+        .from("drafts")
+        .select("id")
+        .limit(1);
 
 
-  if(error){
+    if(result.error){
+      throw result.error;
+    }
 
-    status.textContent =
-      "غير متصل ❌";
-
-    status.className =
-      "pill rejected";
-
-  }else{
 
     status.textContent =
       "متصل ✅";
 
     status.className =
       "pill approved";
+
+  }catch(error){
+
+    console.error(
+      "Supabase connection error:",
+      error
+    );
+
+
+    status.textContent =
+      "غير متصل ❌";
+
+    status.className =
+      "pill rejected";
 
   }
 }
@@ -1249,9 +1435,16 @@ function escapeHtml(text){
    START
    ===================================== */
 
-updateStats();
-loadDrafts();
-testConnection();
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    updateStats();
+    loadDrafts();
+    testConnection();
+
+  }
+);
 
 </script>
 
